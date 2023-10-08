@@ -116,26 +116,29 @@ public:
     ////////////////////////////
     // Reverse list
     void reverse() {
-        Node* loopTempPtr = this->head;
-        Node* tempPtr = this->head;
-        this->head = this->tail;
-        this->tail = tempPtr;
+        Node* currentPtr = this->head;
+        Node* prevPtr = nullptr;
 
-        while(loopTempPtr != NULL) {
-            // Hold the 'next' of the current ptr
-            Node* nextHolder = loopTempPtr->next;
+        while  (currentPtr != nullptr) {
+            Node* nextHolder = currentPtr->next;
 
-            // Variable for swapping
-            Node* tempSwapPtr = loopTempPtr->next;
+            currentPtr->next = prevPtr;
+            currentPtr->prev = nextHolder; 
 
-            // The swap
-            loopTempPtr->next = loopTempPtr->prev;
-            loopTempPtr->prev = tempSwapPtr;
-
-            loopTempPtr = nextHolder;
+            prevPtr = currentPtr;
+            currentPtr = nextHolder;
         }
+
+        this->tail = this->head;
+        this->head = prevPtr;
         showValues();
     }
+
+
+    int headValue() {
+        return head->value;
+    }
+
 };
 
 int main() {
@@ -148,6 +151,12 @@ int main() {
     cout << endl;
     ll.insert(5);
     cout << endl;
+    cout << ll.headValue();
+    cout << endl;
     ll.reverse();
+    cout << endl;
+        cout << ll.headValue();
+    cout << endl;
+
     return 0;
 }
