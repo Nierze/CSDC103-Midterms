@@ -1,4 +1,6 @@
-
+////////////////////////////////////////////////////////////////////////
+// MELCHOR FILIPPE S. BULANON
+////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
 #include <utility>
@@ -50,6 +52,7 @@ queue<int> rearrange(vector<pair<int,int>> arr) {
     while(currentPair.first != -1 && currentPair.second != -1) {
         result.push(findPair(searchFor, arr).second);
         searchFor = findPair(searchFor, arr).second;
+        currentPair = findPair(searchFor, arr);
         cout << currentPair.second << endl;
     }
 
