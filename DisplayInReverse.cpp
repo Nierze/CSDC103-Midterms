@@ -54,7 +54,7 @@ public:
     ///////////////////////////
     // Insert stuffs
     void insert(int n) {
-        Node* tempNode = new Node(n, this->head, this->tail);
+        Node* tempNode = new Node(n, this->head, nullptr);
         if (this->size == 0) {
             this->head = tempNode;
             this->tail = tempNode;
@@ -73,6 +73,7 @@ public:
             Node* tempNodePtr = this->head->next;
             delete(this->head);
             this->head = tempNodePtr;
+            this->head->prev = nullptr;
             size--;
             showValues();
         } else {
@@ -114,49 +115,19 @@ public:
     }
 
     ////////////////////////////
-    // Reverse list
+    // Reverse display list
     void reverse() {
-        Node* currentPtr = this->head;
-        Node* prevPtr = nullptr;
-
-        while  (currentPtr != nullptr) {
-            Node* nextHolder = currentPtr->next;
-
-            currentPtr->next = prevPtr;
-            currentPtr->prev = nextHolder; 
-
-            prevPtr = currentPtr;
-            currentPtr = nextHolder;
+        Node* currentPtr = tail;
+        cout << '[' << size << ']';
+        while(currentPtr != nullptr) {
+            cout << " " << currentPtr->value;
+            currentPtr = currentPtr->prev;
         }
-
-        this->tail = this->head;
-        this->head = prevPtr;
-        showValues();
-    }
-
-
-    int headValue() {
-        return head->value;
     }
 
 };
 
 int main() {
-    LinkedList ll;
-    ll.insert(69);
-    cout << endl;
-    ll.insert(420);
-    cout << endl;
-    ll.insert(4);
-    cout << endl;
-    ll.insert(5);
-    cout << endl;
-    cout << ll.headValue();
-    cout << endl;
-    ll.reverse();
-    cout << endl;
-        cout << ll.headValue();
-    cout << endl;
 
     return 0;
 }
