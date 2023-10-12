@@ -139,6 +139,7 @@ public:
             this->insert(newGifts.head->value);
             newGifts.deleteItem();
         }
+        this->showValues();
     } 
 
 
@@ -149,18 +150,20 @@ public:
 int main() {
 
     LinkedList ll;
-
-    ll.insert('s');
-    ll.insert('a');
-    ll.insert('y');
-    ll.insert('g');
-    ll.insert('e');
-    ll.insert('x');
+    int inputs;
+    string str;
+    char c;
 
 
-    ll.stealGifts('f');
-
-    ll.showValues();
+    while (inputs != 0) {
+        cin >> c >> str;
+        for (char cc : str) {
+            ll.insert(cc);
+        }
+        ll.stealGifts(c);
+        ll.OBLITERATELIST();
+        inputs--;
+    }
 
 
 
