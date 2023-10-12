@@ -33,9 +33,8 @@ public:
     // Display stuffs
     void showValues() {
         Node* tempPtr = this->head;
-        std::cout << '[' << size << ']' << ' '; 
         while(tempPtr != nullptr) {
-            std::cout << tempPtr->value << ' ';  // Display char value
+            std::cout << tempPtr->value;
             tempPtr = tempPtr->next;
         }
         std::cout << std::endl;
@@ -43,8 +42,8 @@ public:
     
     ///////////////////////////
     // Insert stuffs
-    void insert(char c) {  // Change int to char
-        Node* tempNode = new Node(c, this->head);  // Change int to char
+    void insert(char c) {  
+        Node* tempNode = new Node(c, this->head); 
         this->head = tempNode;
         size++;
     }
@@ -64,11 +63,11 @@ public:
     
     ///////////////////////////
     // Search stuffs
-    void searchItem(char c) {  // Change int to char
+    void searchItem(char c) {  
         bool found = false;
         Node* tempPtr = head;
         while(tempPtr != nullptr) {
-            if (tempPtr->value == c) {  // Change int to char
+            if (tempPtr->value == c) { 
                 found = true;
                 break;
             }
@@ -79,12 +78,12 @@ public:
     
     ///////////////////////////
     // Search stuffs and delete it
-    void deleteSearchItem(char c) {  // Change int to char
+    void deleteSearchItem(char c) {  
         bool notFound = true;
         Node* prevPtr = nullptr;
         Node* tempPtr = head;
         while(tempPtr != nullptr) {
-            if (tempPtr->value == c) {  // Change int to char
+            if (tempPtr->value == c) {  
                 notFound = false;
                 size--;
                 if (prevPtr == nullptr) {
@@ -123,11 +122,12 @@ public:
 
 
     void stealGifts(char giftToSteal) {
+        string remaining;
         LinkedList newGifts;
 
         while(head != nullptr) {
             if (head->value == giftToSteal) {
-                newGifts.insert(' ');
+                remaining.push_back(' ');
                 this->deleteItem();
                 break;
             }
@@ -135,10 +135,24 @@ public:
             this->deleteItem();
         }
 
+        while (head != nullptr) {
+            remaining.push_back(head->value);
+            this->deleteItem();
+        }
+
         while (newGifts.head != nullptr) {
             this->insert(newGifts.head->value);
             newGifts.deleteItem();
         }
+
+        for (char cc : remaining) {
+            this->insert(cc);
+        }
+
+        if (head->value == ' ') {
+            this->deleteItem();
+        }
+
         this->showValues();
     } 
 
@@ -154,17 +168,16 @@ int main() {
     string str;
     char c;
 
+    cin>>inputs;
 
-    while (inputs != 0) {
+    while (inputs--) {
         cin >> c >> str;
         for (char cc : str) {
             ll.insert(cc);
         }
         ll.stealGifts(c);
         ll.OBLITERATELIST();
-        inputs--;
     }
-
 
 
 
